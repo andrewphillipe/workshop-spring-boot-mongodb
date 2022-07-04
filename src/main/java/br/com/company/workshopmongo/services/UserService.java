@@ -20,16 +20,21 @@ public class UserService {
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
-	
+
 	public User findById(String id) {
 		Optional<User> user = userRepository.findById(id);
 		return user.orElseThrow(() -> new ObjectNotFoundException("Objeto nao encontrado"));
 	}
-	
+
 	public User insert(User user) {
 		return userRepository.insert(user);
 	}
-	
+
+	public void deleteById(String id) {
+		findById(id);
+		userRepository.deleteById(id);
+	}
+
 	public User fromDTO(UserDTO userDTO) {
 		return new User(userDTO.getId(), userDTO.getName(), userDTO.getEmail());
 	}
